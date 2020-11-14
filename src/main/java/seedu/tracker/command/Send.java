@@ -35,6 +35,11 @@ public class Send extends Command {
                 return;
             }
             String getString = projects.get(projectNumber).toString();
+
+            if (!(getEmail(getString).matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
+                System.out.println("Invalid Email Format");
+                return;
+            }
             new SendEmail(getEmail(getString), ui.displayProject(projects.get(projectNumber)));
         } catch (NumberFormatException ex) {
             System.out.println(" Please input a number");

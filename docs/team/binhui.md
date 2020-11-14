@@ -19,6 +19,7 @@ Given below are my contributions to the
 - Add email function: add the email function in order to send out email. [#52](https://github.com/AY2021S1-TIC4001-1/tp/pull/52/commits/89aa518e785a5b2750076b7cddef00fdcee7e17a)
 - Add alert function: if the leftday less than 7 it will auto send a email. [#53](https://github.com/AY2021S1-TIC4001-1/tp/pull/53/commits/6f4ae32d89c20b3e336c7a9d972639ff474d3c66)
 - Add timeconvert:  a common class for converting time and validate time. [#53](https://github.com/AY2021S1-TIC4001-1/tp/pull/53/commits/6f4ae32d89c20b3e336c7a9d972639ff474d3c66)
+- bug fixes. [#105](https://github.com/AY2021S1-TIC4001-1/tp/pull/105/files)[#107](https://github.com/AY2021S1-TIC4001-1/tp/pull/107/files)
 
 ### Code contributed: 
 [RepoSense link](https://nus-tic4001-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByAuthors&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=binbinhui&tabRepo=AY2021S1-TIC4001-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&reverseAuthorshipOrder=false)
@@ -46,11 +47,12 @@ Given below are my contributions to the
 
 ### Contributions to team-based tasks :
 
-- standarise the commond line
-- pvovide help on the workflow
-- help debuging and technical guide
-- creating milestone and labels
-- oversea the progress, keep track of the issues.
+- Standarise the commond line
+- Pvovide help on the workflow
+- Help debuging and fixed bugs
+- Giving technical guide for the teammate
+- Creating milestone and labels
+- Oversea the progress, keep track of the issues.
 - Doing QA test
 
 ### Tools

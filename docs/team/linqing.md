@@ -18,8 +18,7 @@ Given below are my contributions to the
 
 ### Code contributed: 
 [RepoSense link](https://nus-tic4001-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=QING&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByAuthors&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=linqing42&tabRepo=AY2021S1-TIC4001-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code)
-### Project management
-- Managed releases ```v1.0``` - ```v3.0``` (3 releases) on Github
+
 ### Enhancements to existing features:
 
 - Update the project feature [#83](https://github.com/AY2021S1-TIC4001-1/tp/pull/83/commits/0d4ea0cb5b99b5929ef1fcca822db6d94764817f)
