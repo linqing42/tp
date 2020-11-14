@@ -1,6 +1,5 @@
 package seedu.tracker.ui;
 
-import java.text.ParseException;
 import seedu.tracker.common.DateConverter;
 import seedu.tracker.project.Project;
 import seedu.tracker.project.ProjectList;
@@ -149,7 +148,7 @@ public class Ui {
         return display;
     }
 
-    public void printProjectCompleted(int index, ProjectList projects) {
+    public void printProjectCompleted(ProjectList projects) {
         String complete = "Good Job! You have completed:\n"
             + colorGreen(displayProject(projects.get(projects.size() - 1)));
         printBorderline(complete);
