@@ -125,28 +125,27 @@ public class Ui {
     }
 
     public String displayProject(Project project) {
-        String display = "";
-        try {
-            String[] projectDetails = project.getDescription().split("--");
-            String startDate = projectDetails[5].split(" ", 2)[1];
-            String dueDate = projectDetails[6].split(" ", 2)[1];
-            String duration = new DateConverter(startDate, dueDate).getDateDiff();
-            String daysLeft = new DateConverter(dueDate).getDaysLeft();
-
-            display = "Project Name: " + projectDetails[1].split(" ", 2)[1] + "\n"
-                + "Project Description: " + projectDetails[2].split(" ", 2)[1] + "\n"
-                + "Project Team Members: " + projectDetails[3].split(" ", 2)[1] + "\n"
-                + "Client: " + projectDetails[4].split(" ", 2)[1] + "\n"
-                + "Start Date: " + startDate + "\n"
-                + "Due Date: " + dueDate + "\n"
-                + "Person in Charge: " + projectDetails[7].split(" ", 2)[1] + "\n"
-                + "Email: " + projectDetails[8].split(" ", 2)[1] + "\n"
-                + "Duration: " + duration + "\n"
-                + "Days Left: " + daysLeft + "\n"
-                + "Status: " + project.getStatus() + "\n";
-        } catch (ParseException e) {
-            printBorderline(e.getMessage());
+        String display;
+        String[] projectDetails = project.getDescription().split("--");
+        String startDate = projectDetails[5].split(" ", 2)[1];
+        String dueDate = projectDetails[6].split(" ", 2)[1];
+        String duration = new DateConverter(startDate, dueDate).getDateDiff();
+        String daysLeft = new DateConverter(dueDate).getDaysLeft();
+        if (Integer.parseInt(daysLeft.trim()) < 0) {
+            daysLeft = "Overdue";
         }
+
+        display = "Project Name: " + projectDetails[1].split(" ", 2)[1] + "\n"
+            + "Project Description: " + projectDetails[2].split(" ", 2)[1] + "\n"
+            + "Project Team Members: " + projectDetails[3].split(" ", 2)[1] + "\n"
+            + "Client: " + projectDetails[4].split(" ", 2)[1] + "\n"
+            + "Start Date: " + startDate + "\n"
+            + "Due Date: " + dueDate + "\n"
+            + "Person in Charge: " + projectDetails[7].split(" ", 2)[1] + "\n"
+            + "Email: " + projectDetails[8].split(" ", 2)[1] + "\n"
+            + "Duration: " + duration + "\n"
+            + "Days Left: " + daysLeft + "\n"
+            + "Status: " + project.getStatus() + "\n";
         return display;
     }
 

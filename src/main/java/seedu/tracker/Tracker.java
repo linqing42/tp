@@ -20,7 +20,6 @@ public class Tracker {
     private final Storage storage = new Storage("projects.txt", projects, ui);
 
     public static void main(String[] args) {
-        assert (args.length) >= 0;
         new Tracker().run();
     }
 

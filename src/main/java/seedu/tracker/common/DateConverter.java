@@ -2,8 +2,13 @@ package seedu.tracker.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Date;
 import java.util.Locale;
+import seedu.tracker.ui.Ui;
 
 /**
  * DateConverter class, is a common class, all the data validation or conversion will be done here.
@@ -14,58 +19,63 @@ public class DateConverter {
     String dueDate;
     String dateDiff;
     String daysLeft;
+    Ui ui;
 
-    public DateConverter(String startDate, String dueDate) throws ParseException {
+    public DateConverter(String startDate, String dueDate) {
         this.startDate = startDate;
         this.dueDate = dueDate;
         setDateDiff();
     }
 
-    public DateConverter(String dueDate) throws ParseException {
+    public DateConverter(String dueDate) {
         this.dueDate = dueDate;
         setDaysLeft();
     }
 
-    public void setDateDiff() throws ParseException {
+    public DateConverter(Ui ui) {
+        this.ui = ui;
+    }
+
+    public void setDateDiff() {
         dateConverter(startDate);
         dateConverter(dueDate);
         Float day = calculateDateDiff(startDate, dueDate);
         dateDiff = String.format("%.0f", day);
     }
 
-    public void setDaysLeft() throws ParseException {
+    public void setDaysLeft() {
         String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         dateConverter(currentDate);
         dateConverter(dueDate);
         Float day = calculateDateDiff(currentDate, dueDate);
         daysLeft = String.format("%.0f", day);
+       
     }
 
-
-    public boolean dateChecker(String dateInString) {
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-
-        if ((Integer.parseInt(dateInString.substring(0,2)) >= 31
-                || Integer.parseInt(dateInString.substring(0,2)) <= 0)
-                || (Integer.parseInt(dateInString.substring(3,5)) >= 13
-                || Integer.parseInt(dateInString.substring(3,5)) <= 0)) {
-            System.out.println(dateInString + "is out of correct date range, please enter the correct date");
-            return false;
-        }
-
+    public boolean dateChecker(String dateInString, boolean displayError) {
         try {
-            Date date = formatter.parse(dateInString);
-            System.out.println(date + " is valid date format");
-        } catch (ParseException e) {
+            // ResolverStyle.SMART for checking actual calendar dates.
+            LocalDate.parse(dateInString.trim(),
+                DateTimeFormatter.ofPattern("d/M/yyyy")
+                    .withResolverStyle(ResolverStyle.SMART)
+            );
+        } catch (DateTimeParseException e) {
+            if (displayError) {
+                ui.printBorderline(dateInString
+                    + " is not within actual calendar dates or not in the correct format: dd/MM/yyyy");
+            }
             return false;
         }
         return true;
     }
 
-    public void dateConverter(String dateInString) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-        formatter.parse(dateInString);
+    public void dateConverter(String dateInString) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            formatter.parse(dateInString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public float calculateDateDiff(String startDate, String endDate) {
@@ -92,7 +102,7 @@ public class DateConverter {
             if (sd.compareTo(ed) < 0) {
                 isSdEarlierThanEd = true;
             } else {
-                System.out.println("Due Date is earlier than Start Date, please enter the correct date!");
+                System.out.println("Due Date is earlier than Start Date, please enter a proper date!");
                 isSdEarlierThanEd = false;
             }
         } catch (ParseException e) {

@@ -94,12 +94,12 @@ public class Storage {
                 if (projectStatus.equals("[Complete]")) {
                     projects.get(projects.size() - 1).setComplete();
                 }
-                if (Integer.parseInt(daysLeft) < 7) {
+                if (Integer.parseInt(daysLeft) < 7 && Integer.parseInt(daysLeft) >= 0) {
                     new Send(Integer.toString(dataSet), projects, ui).execute();
                 }
                 dataSet++;
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             ui.printBorderline(e.getMessage());
         }
         return projects;

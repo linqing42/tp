@@ -32,8 +32,9 @@ public class Complete extends Command {
                     "You almost typed a proper complete command, but you missed out the number!\n"
                         + "Please type in the '--complete INDEX' format.");
             }
-            int index = Integer.parseInt(line);
-            projects.get(index - 1).setComplete();
+
+            int index = Integer.parseInt(line.trim()) - 1;
+            projects.get(index).setComplete();
             ui.printProjectCompleted(index, projects);
 
             storage.updateStorage(projects);

@@ -23,12 +23,13 @@ public class Find extends Command {
     @Override
     public void execute() {
         try {
-            String searchWord = line.split("--replace")[0].trim();
 
             if (projects.size() == 0) {
                 ui.printBorderline("It appears that you have no projects yet, so you can't find anything!");
                 return;
             }
+            String searchWord = line.split("--replace")[0].trim();
+
             if (line.isEmpty()) {
                 ui.printBorderline("You didn't type in any keyword to find!\n"
                     + "Please type in the '--find KEYWORD' format!");
@@ -63,13 +64,16 @@ public class Find extends Command {
             String searchWord = line.split("--replace")[0].trim();
             String replaceWord = line.split("--replace")[1].trim();
 
+            boolean time = false;
             if (searchWord.isEmpty() || replaceWord.isEmpty()) {
                 ui.printBorderline("Please type in the '--find KEYWORD --replace KEYWORD' format!");
                 return;
             }
-            if (!new DateConverter(searchWord).dateChecker(searchWord)
-                || !new DateConverter(replaceWord).dateChecker(replaceWord)) {
-                return;
+
+            if (new DateConverter(ui).dateChecker(searchWord, false)) {
+                if (!new DateConverter(ui).dateChecker(replaceWord, true)) {
+                    return;
+                }
             }
 
             String changes = "Here are the project(s) that has the word '" + searchWord
@@ -81,23 +85,31 @@ public class Find extends Command {
                 String newData = "";
 
                 for (int j = 1; j < currentProject.length; j++) {
-                    String currentCommand = currentProject[j].split(" ", 2)[0];
+                    String currentCommand = currentProject[j].split(" ", 2)[0]; // unused command
                     String currentDescription = currentProject[j].split(" ", 2)[1];
-
-                    if (currentDescription.toLowerCase().contains(searchWord.toLowerCase())) {
+                    if (currentCommand.equalsIgnoreCase("startdate")
+                            || currentCommand.equalsIgnoreCase("duedate")) {
+                        newData = newData.concat("--" + currentProject[j].trim() + " ");
+                        time = true;
+                    } else if (currentDescription.toLowerCase().contains(searchWord.toLowerCase())) {
                         currentDescription = currentProject[j].replace(searchWord, replaceWord);
                         newData = newData.concat("--" + currentDescription + " ").trim();
                     } else {
-                        newData = newData.concat("--" + currentProject[j].trim());
+                        newData = newData.concat("--" + currentProject[j].trim() + " ");
                     }
                 }
                 projects.set(i, new Project(newData));
                 changes = changes.concat(i + 1 + ".\n" + ui.displayProject(projects.get(i)));
             }
+
+            if (time) {
+                System.out.println("* Keyword has been detected in date, date cannot be replaced *");
+            }
+
             storage.updateStorage(projects);
             ui.printBorderline(changes);
 
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             ui.printBorderline(e.getMessage());
         }
     }

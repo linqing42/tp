@@ -18,6 +18,12 @@ public class Send extends Command {
     @Override
     public void execute() {
         try {
+            if (projects.size() == 0) {
+                ui.printBorderline("It appears that you have no projects yet, so you can't edit any!\n"
+                        + "Perhaps you should start creating one?");
+                return;
+            }
+
             int projectNumber = Integer.parseInt(line.trim()) - 1;
 
             if (projects.size() == 0) {

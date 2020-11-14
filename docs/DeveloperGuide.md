@@ -9,6 +9,9 @@ and you can refer to [online website](https://ay2021s1-tic4001-1.github.io/tp/De
 ### UML diagram 
 ![UML Diagram V2](images/UML%20V2.png) 
 
+### Object diagram 
+![Object Diagram](images/object_diagram.png) 
+
 ### Storage method: getlines(string fileName)
 ![Sequence Diagram](images/StorageGetLine-Page-1.png)
 
@@ -65,8 +68,11 @@ Project Tracker will help to solve to tracking and managing projects. It will in
                
 ## Glossary
 
-* *Mainstream OS * - Windows, Mac and Linux
+* Mainstream OS * - Windows, Mac and Linux
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+Start the program
+*    1. Download the Jar file and copy into an empty folder
+*    2. Use terminal/CMD to run jar file with `java -jar` command.
+*    3. type exit command or double enter to exit the program.

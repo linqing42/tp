@@ -43,7 +43,7 @@ public class Delete extends Command {
         }
 
         try {
-            int index = Integer.parseInt(line);
+            int index = Integer.parseInt(line.trim());
             ui.printProjectRemoved(projects, index - 1);
             projects.remove(index - 1);
             storage.updateStorage(projects);

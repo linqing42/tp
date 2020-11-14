@@ -20,15 +20,11 @@ public class UiTest {
                 + "--incharge Derek --email linqing4267@gmail.com");
         ProjectList projects = new ProjectList();
         projects.add(project1);
-        String daysLeft = null;
+        String daysLeft;
 
         String projectDetail1 = ui.displayProject(projects.get(0));
 
-        try {
-            daysLeft = new DateConverter("12/12/2020").getDaysLeft();
-        } catch (ParseException e) {
-            ui.printBorderline(e.getMessage());
-        }
+        daysLeft = new DateConverter("12/12/2020").getDaysLeft();
 
         String projectDetail2 =
                 "Project Name: Clinical Trials " + "\n"

@@ -37,7 +37,7 @@ public class Edit extends Command {
             String newDescription = commandWithNewDescription.split(" ", 2)[1];
 
             String emailFormat = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-            if (commandWord.contains("email") || !(newDescription.matches(emailFormat))) {
+            if (commandWord.contains("email") && !newDescription.matches(emailFormat)) {
                 throw new TrackerException("Invalid Email format");
             }
 
@@ -50,12 +50,9 @@ public class Edit extends Command {
             }
 
             if (commandWord.equals("startdate") || commandWord.equals("duedate")) {
-                if (!new DateConverter(newDescription).dateChecker(newDescription)) {
+                if (!new DateConverter(newDescription).dateChecker(newDescription, true)) {
                     return;
                 }
-            }
-            if (commandWord.equals("duration")) {
-                throw new TrackerException("Duration is automatically calculated and cannot be changed.");
             }
 
             String[] selectedProject = projectLine.split("--");
@@ -76,7 +73,7 @@ public class Edit extends Command {
             ui.printEditMessage(projects);
             storage.updateStorage(projects);
 
-        } catch (TrackerException | IOException | ParseException e) {
+        } catch (TrackerException | IOException e) {
             ui.printBorderline(e.getMessage());
         } catch (NumberFormatException e) {
             ui.printBorderline(

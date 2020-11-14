@@ -41,15 +41,10 @@ public class Create extends Command {
                     System.out.println("The command line is missing for --" + command);
                     hasMistake = true;
                 }
-                if (line.contains("--email") && !(line.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
-                    System.out.println("Invalid Email Format");
-                    hasMistake = true;
-                    break;
-                }
             }
             if (hasMistake) {
                 System.out.println("Please create the project in the correct format:\n"
-                    + "--project --name INPUT --description INPUT --involve INPUT "
+                    + "--project --name INPUT --description INPUT --involve INPUT --client INPUT "
                     + "--startdate dd/mm/yyyy --duedate dd/mm/yyyy --incharge INPUT --email INPUT");
                 return;
             }
@@ -74,18 +69,25 @@ public class Create extends Command {
                         String[] arr = splits[num].split(" ", 2);
                         dueDate = arr[1];
                     }
+                    if (splits[num].contains("email")) {
+                        String[] arr = splits[num].split(" ",2);
+                        if (!(arr[1].matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))) {
+                            System.out.println("Invalid Email Format");
+                            return;
+                        }
+                    }
                 }
             }
 
-            if (new DateConverter(startDate, dueDate).dateChecker(startDate)
-                && new DateConverter(startDate, dueDate).dateChecker(dueDate)
+            if (new DateConverter(startDate, dueDate).dateChecker(startDate, true)
+                && new DateConverter(startDate, dueDate).dateChecker(dueDate, true)
                     &&  new DateConverter(startDate, dueDate).dateValidator(startDate, dueDate)) {
                 projects.add(new NewProject(newData));
                 ui.printProjectCreated(projects);
                 storage.updateStorage(projects);
             }
 
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             ui.printBorderline(e.getMessage());
         }
     }
